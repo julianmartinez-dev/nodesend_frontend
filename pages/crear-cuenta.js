@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Layout from '../components/Layout';
 import FormControl from '../components/Form/FormControl';
 import ErrorMsg from '../components/Form/ErrorMsg';
 
@@ -26,7 +25,7 @@ const CrearCuenta = () => {
   });
 
   return (
-    <Layout>
+
       <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
         <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">
           Crear Cuenta
@@ -73,7 +72,7 @@ const CrearCuenta = () => {
           </div>
         </div>
       </div>
-    </Layout>
+
   );
 };
 

@@ -1,5 +1,4 @@
 import FormControl from '../components/Form/FormControl';
-import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import ErrorMsg from '../components/Form/ErrorMsg';
 import * as Yup from 'yup'
@@ -20,7 +19,7 @@ const Login = () => {
   });
 
   return (
-    <Layout>
+    
       <div className="md:w-4/5 xl:w1/3 mx-auto mb-32">
         <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">
           Iniciar Sesión
@@ -59,7 +58,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </Layout>
+
   );
 };
 

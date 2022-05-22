@@ -1,9 +1,23 @@
-import FormControl from '../components/Form/FormControl';
+import { useContext, useEffect } from 'react';
+import authContext from '../context/auth/authContext';
 import { useFormik } from 'formik';
-import ErrorMsg from '../components/Form/ErrorMsg';
+import { useRouter } from 'next/router';
 import * as Yup from 'yup'
+import FormControl from '../components/Form/FormControl';
+import ErrorMsg from '../components/Form/ErrorMsg';
+import Alerta from '../components/Alerta';
 
 const Login = () => {
+
+  const { mensaje, iniciarSesion, autenticado } = useContext(authContext)
+  const router = useRouter();
+
+  useEffect(() => {
+    if(autenticado){
+      router.push('/');
+    }
+  },[autenticado])
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -14,7 +28,7 @@ const Login = () => {
       password: Yup.string().required('La contraseña es obligatoria')
     }),
     onSubmit: (values) => {
-      console.log('Enviando formulario', values)
+      iniciarSesion(values)
     }
   });
 
@@ -24,6 +38,8 @@ const Login = () => {
         <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">
           Iniciar Sesión
         </h2>
+
+        { mensaje && <Alerta />}
 
         <div className="flex justify-center mt-5">
           <div className="w-full max-w-lg">

@@ -25,6 +25,7 @@ const CrearCuenta = () => {
 
     onSubmit: (values) => {
       registrarUsuario(values);
+      formik.resetForm();
     }
   });
 

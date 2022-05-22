@@ -3,7 +3,9 @@ import authContext from "./authContext";
 import { useReducer } from 'react'
 import authReducer from "./authReducer";
 
-import { USUARIO_AUTENTICADO } from "../../types";
+import { REGISTRO_EXITOSO, REGISTRO_FALLIDO, LIMPIAR_ALERTA} from "../../types";
+
+import clienteAxios from "../../config/axios";
 
 const AuthState = ({children}) => {
     //1 - Definir el estado inicial
@@ -21,8 +23,26 @@ const AuthState = ({children}) => {
     //3- Definir las funciones
 
     //Registrar nuevos usuarios
-    const registrarUsuario = datos => {
-        console.log(datos)
+    const registrarUsuario = async datos => {
+       try {
+           const respuesta = await clienteAxios.post('/api/usuarios', datos)
+           dispatch({
+                type: REGISTRO_EXITOSO,
+                payload: respuesta.data.msg
+           })
+       } catch (error) {
+              dispatch({
+                type: REGISTRO_FALLIDO,
+                payload: error.response.data.msg,
+              });
+       }
+
+       //Limpiar la alerta despues de 3s
+         setTimeout(() => {
+            dispatch({
+                type: LIMPIAR_ALERTA
+            })
+         } , 3000);
     }
 
     //Funcion que se ejecuta cuando el usuario se autentica

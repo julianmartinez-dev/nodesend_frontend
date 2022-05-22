@@ -1,10 +1,13 @@
-import React from 'react';
+import { useContext, useEffect} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import authContext from '../context/auth/authContext';
 import FormControl from '../components/Form/FormControl';
 import ErrorMsg from '../components/Form/ErrorMsg';
 
 const CrearCuenta = () => {
+
+  const { registrarUsuario } = useContext(authContext);
 
   //Formulario y validacion con Formik y Yup
   const formik = useFormik({
@@ -20,7 +23,7 @@ const CrearCuenta = () => {
     }),
 
     onSubmit: (values) => {
-      console.log('Enviando formulario', values)
+      registrarUsuario(values);
     }
   });
 

@@ -1,11 +1,15 @@
-import '../styles/globals.css'
-import Layout from '../components/Layout'
+import '../styles/globals.css';
+import Layout from '../components/Layout';
+import AuthState from '../context/auth/authState';
 
 function MyApp({ Component, pageProps }) {
   return (
-  <Layout>
-    <Component {...pageProps} />
-  </Layout>
-)}
+    <AuthState>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthState>
+  );
+}
 
-export default MyApp
+export default MyApp;

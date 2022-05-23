@@ -1,26 +1,32 @@
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { useContext, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import authContext from '../context/auth/authContext';
+import UsuarioAutenticado from './Header/UsuarioAutenticado';
+import UsuarioInvitado from './Header/UsuarioInvitado';
 
 const Header = () => {
+  const {  autenticado } = useContext(authContext);
+
   return (
     <header className="pb-8 flex flex-col md:flex-row items-center justify-between">
-      <Link href='/'>
+      <Link href="/">
         <a>
-          <Image src="/logo.svg" alt="Logo" width={200} height={200} className='hover:cursor-pointer' />
+          <Image
+            src="/logo.svg"
+            alt="Logo"
+            width={200}
+            height={200}
+            className="hover:cursor-pointer"
+          />
         </a>
       </Link>
 
       <div>
-        <Link href="/login">
-          <a className="btn-primary mr-2">Iniciar Sesión</a>
-        </Link>
-        <Link href="/crear-cuenta">
-          <a className="btn-secondary">Crear cuenta</a>
-        </Link>
+        {autenticado ? <UsuarioAutenticado /> : <UsuarioInvitado />}
       </div>
     </header>
   );
-}
+};
 
-export default Header
+export default Header;

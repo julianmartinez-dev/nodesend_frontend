@@ -5,6 +5,7 @@ import {
   USUARIO_AUTENTICADO,
   LOGIN_ERROR,
   LOGIN_EXITOSO,
+  LOGOUT
 } from '../../types';
 
 //Funciones que se encargan de alterar el state
@@ -34,6 +35,15 @@ export default (state, action) => {
         ...state,
         usuario: action.payload,
         autenticado: true,
+      }
+    case LOGOUT:
+      localStorage.removeItem('rnsend_token');
+      return{
+        ...state,
+        token: null,
+        usuario: null,
+        autenticado: false,
+        mensaje: null,
       }
     default:
       return state;

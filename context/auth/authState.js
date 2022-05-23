@@ -9,7 +9,8 @@ import {
   LIMPIAR_ALERTA,
   USUARIO_AUTENTICADO,
   LOGIN_ERROR,
-  LOGIN_EXITOSO
+  LOGIN_EXITOSO,
+  LOGOUT
 } from '../../types';
 
 import clienteAxios from '../../config/axios';
@@ -80,18 +81,34 @@ const AuthState = ({ children }) => {
     const token = localStorage.getItem('rnsend_token');
     if (token) {
       tokenAuth(token);
+      try {
+        const respuesta = await clienteAxios.get('/api/auth');
+        dispatch({
+          type: USUARIO_AUTENTICADO,
+          payload: respuesta.data.usuario,
+        });
+      } catch (error) {
+        dispatch({
+          type: LOGIN_ERROR,
+          payload: error.response.data.msg,
+        });
+      }
+      //Limpiar la alerta despues de 3s
+      setTimeout(() => {
+        dispatch({
+          type: LIMPIAR_ALERTA,
+        });
+      }, 3000);
     }
 
-    try {
-      const respuesta = await clienteAxios.get('/api/auth');
-      dispatch({
-        type: USUARIO_AUTENTICADO,
-        payload: respuesta.data.usuario,
-      })
-    } catch (error) {
-      console.log(error.response)
-    }
   };
+
+  //Cerrar sesion
+  const cerrarSesion = () => {
+    dispatch({
+      type: LOGOUT,
+    })
+  }
 
   return (
     <authContext.Provider
@@ -102,7 +119,8 @@ const AuthState = ({ children }) => {
         mensaje: state.mensaje,
         registrarUsuario,
         usuarioAutenticado,
-        iniciarSesion
+        iniciarSesion,
+        cerrarSesion
       }}
     >
       {children}

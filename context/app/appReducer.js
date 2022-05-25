@@ -6,6 +6,7 @@ import {
   SUBIENDO_ARCHIVO,
   CREAR_ENLACE_ERROR,
   CREAR_ENLACE_EXITO,
+  LIMPIAR_STATE
 } from '../../types';
 
 export default (state, action) => {
@@ -43,6 +44,18 @@ export default (state, action) => {
             ...state,
             url : action.payload   
         }
+    case LIMPIAR_STATE:
+        return {
+          ...state,
+          mensaje_archivo: '',
+          nombre_hasheado: '',
+          nombre_original: '',
+          subiendo_archivo: false,
+          descargas: 1,
+          password: '',
+          autor: null,
+          url: '',
+        };
 
     default:
       return state;

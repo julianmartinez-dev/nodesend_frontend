@@ -9,6 +9,7 @@ import {
   SUBIENDO_ARCHIVO,
   CREAR_ENLACE_ERROR,
   CREAR_ENLACE_EXITO,
+  LIMPIAR_STATE
 } from '../../types';
 import clienteAxios from '../../config/axios';
 
@@ -83,6 +84,12 @@ const AppState = ({ children }) => {
         console.log(error)
     }
   };
+
+  const limpiarState = () => {
+    dispatch({
+      type: LIMPIAR_STATE,
+    })
+  }
   return (
     <AppContext.Provider
       value={{
@@ -97,6 +104,7 @@ const AppState = ({ children }) => {
         mostrarAlerta,
         subirArchivo,
         crearEnlace,
+        limpiarState
       }}
     >
       {children}

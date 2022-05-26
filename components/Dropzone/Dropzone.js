@@ -25,7 +25,7 @@ const Dropzone = () => {
 
   //Extraer contenido de dropzone
   const { getInputProps, getRootProps, isDragActive, acceptedFiles } =
-    useDropzone({ onDropAccepted, onDropRejected, maxSize: 1000000 });
+    useDropzone({ onDropAccepted, onDropRejected, maxSize: autenticado ? 20000000 : 1000000 });
 
   //Mostrar archivos cargados
   const archivos = acceptedFiles.map((file) => (

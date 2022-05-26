@@ -9,7 +9,9 @@ import {
   SUBIENDO_ARCHIVO,
   CREAR_ENLACE_ERROR,
   CREAR_ENLACE_EXITO,
-  LIMPIAR_STATE
+  LIMPIAR_STATE,
+  AGREGAR_PASSWORD,
+  AGREGAR_DESCARGAS
 } from '../../types';
 import clienteAxios from '../../config/axios';
 
@@ -90,6 +92,20 @@ const AppState = ({ children }) => {
       type: LIMPIAR_STATE,
     })
   }
+
+  const agregarPassword = password => {
+    dispatch({
+      type: AGREGAR_PASSWORD,
+      payload: password
+    })
+  }
+
+  const agregarDescargas = descargas => {
+    dispatch({
+      type: AGREGAR_DESCARGAS,
+      payload: descargas
+    })
+  }
   return (
     <AppContext.Provider
       value={{
@@ -104,7 +120,9 @@ const AppState = ({ children }) => {
         mostrarAlerta,
         subirArchivo,
         crearEnlace,
-        limpiarState
+        limpiarState,
+        agregarPassword,
+        agregarDescargas
       }}
     >
       {children}

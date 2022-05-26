@@ -13,7 +13,10 @@ export default function Home() {
   const [copiado, setCopiado] = useState(false)
 
   useEffect(() => {
-    usuarioAutenticado();
+    const token = localStorage.getItem('rnsend_token');
+    if (token) {
+      usuarioAutenticado();
+    }
   },[])
   
   const handleCopiar = (url) => {
